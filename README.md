@@ -12,5 +12,6 @@
 ## Selected Programs
 1. [Code for Ultrasonic Range Finder with Distance Display for Arduino](https://k-l-chen.github.io/Previous_Research/ultrasonicRNGEFinder.ino)
 2. [Code for Basic Rotating Fan Assembly](https://k-l-chen.github.io/Previous_Research/Fan.ino)
-3. [Multiplication and Factorial Y86 Assembly Code](https://k-l-chen.github.io/Previous_Research/lab3p1.ys)
-4. [Raise to Power Y86 Assembly Code](https://k-l-chen.github.io/Previous_Research/lab3p2.ys)
+3. [Video of Basic Fan with Non-Continuous Servo Motor for Testing](https://k-l-chen.github.io/Previous_Research/IMG_2422.MOV)
+4. [Multiplication and Factorial Y86 Assembly Code](https://k-l-chen.github.io/Previous_Research/lab3p1.ys)
+5. [Raise to Power Y86 Assembly Code](https://k-l-chen.github.io/Previous_Research/lab3p2.ys)
