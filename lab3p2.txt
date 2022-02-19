@@ -1,0 +1,139 @@
+.pos 0
+Init:
+    irmovl Stack, %ebp
+    irmovl Stack, %esp
+    call main	        	# Execute main program
+	halt		        	# Terminate program
+    
+.pos 0x100
+Stack:
+
+.pos 0x104
+main:
+    pushl %ebp
+    rrmovl %esp, %ebp
+    mrmovl (%esp), %ecx
+    irmovl $4, %eax
+    subl %eax, %ecx
+    pushl %ecx
+    
+    irmovl $40, %eax       
+    subl %eax, %esp         #set up array
+    
+    irmovl $2, %edx         #put elements in input_array, at 0x00d0
+    rmmovl %edx, -40(%ebp)
+    irmovl $4, %edx
+    rmmovl %edx, -36(%ebp)
+    irmovl $5, %edx
+    rmmovl %edx, -32(%ebp)
+    irmovl $3, %edx
+    rmmovl %edx, -28(%ebp)
+    irmovl $6, %edx
+    rmmovl %edx, -24(%ebp)
+    irmovl $2, %edx
+    rmmovl %edx, -20(%ebp)
+    #irmovl $3, %edx
+    #rmmovl %edx, -16(%ebp)
+    #irmovl $-1, %edx
+    #rmmovl %edx, -12(%ebp)
+    
+    irmovl $3, %edx         #create numpairs, 0x00f0
+    rmmovl %edx, -8(%ebp)
+    
+    rrmovl %ebp, %edx
+    subl %eax, %edx         #%edx is pointing at start of array, 0x00d0
+    
+    #subl %ebx, %eax
+    
+    xorl %eax, %eax         #clear %eax
+    xorl %ecx, %ecx         #clear %ecx
+
+    #rrmovl %edx, %ecx
+    #irmovl $8, %ebx
+    #addl %ebx, %ecx                     #setup original counter
+    
+    irmovl 0x00f0, %edi     #setup %edi as pointer to numpairs value
+    mrmovl (%edi), %edi     #set %edi as numpairs
+    #pushl %edi              #push numpairs
+    
+    #irmovl $-1, %edi
+    
+    call get_pair
+
+#.pos 0x114                  #allocation of more space on stack
+
+get_pair:
+    pushl %esp
+    rrmovl %esp,%ebp
+    
+    mrmovl 4(%edx), %ecx                #get power, *((%edx) + 4), power counter
+    #mrmovl (%edx), %esi                #setup sum (%eax) and copy (%esi)
+    #mrmovl (%edx), %eax
+    irmovl $1, %eax
+    
+    addl %eax, %ecx                     #need pwr + 1 loops since I start at total = 1
+    
+    #pushl %edx
+    #pushl %eax
+    
+    call raise_to_power
+    
+end_of_get_pair_loop:                   #this is the only way I can get back to the original loop.
+    rmmovl %eax, (%edx)                 #overwrites values at %edx from base to end value. It's just easier to store it that way
+                                        #these nums are at 0x00d0, 0x00d8, 0x00e0
+    
+    irmovl $8, %ebx                     #iterate to next value in array
+    addl %ebx, %edx                     
+    
+    rrmovl %edx, %ebx                   #make copy of array pointer in %ebx
+    
+                
+    #xorl %edi, %ebx                     #check if value in array is the end value of array
+    jne get_pair                         #if num != -1, loop
+    
+    je end                              #end if num reaches end of arr
+    
+raise_to_power: #pushl %esp
+    rrmovl %esp,%ebp
+    
+    #mrmovl 4(%edx), %ecx
+    mrmovl (%edx), %esi                 #multiply by itself
+    #rrmovl %eax, %esi
+    irmovl $-1, %ebx
+    
+    addl %ebx, %ecx
+    je end_of_get_pair_loop             #stop when %ecx = 0, %eax is the end value
+    
+    addl %esi, %ebx                     #create inner multiplication loop counter
+    
+    rrmovl %eax, %esi
+    
+    #je end_of_get_pair_loop             #stop when %ecx = 0, %eax is the end value
+    #rrmovl %ecx, %ebx
+    call mul_op
+        
+end_of_power_loop:
+    #irmovl $1, %ebx
+    #subl %ebx, %ecx
+    #je end_of_get_pair_loop             #if num^power is done, go to end of previous loop
+    
+    jmp raise_to_power                  #do loop again
+    
+mul_op:
+    pushl %edi
+    
+    irmovl $-1, %edi
+    addl %esi, %eax             #add current val to itself
+    addl %edi, %ebx             #decriment counter
+    
+    mrmovl (%esp), %edi
+    popl %edi
+    
+    jg mul_op
+    je end_of_power_loop
+    #rrmovl %ebx, %ecx           #set counter to previous state before iteration
+
+end:rrmovl %ebp,%esp                    #move %ebp to %esp
+	popl %ebp                           #clear content, restore %ebp on main
+	ret                                 #changing stack frame
+    

@@ -1,0 +1,102 @@
+	.pos 0 
+init:
+    irmovl Stack, %esp  	# Set up stack pointer  
+	irmovl Stack, %ebp  	# Set up base pointer   
+	call Main	        	# Execute main program
+	halt		        	# Terminate program 
+
+        .align 4            #at 0x14
+Input:  .long 0x5            #1*2*3*4*5 = 120, mem addr = 20
+        .long 0xc            #1*2*...*12 = 43545600
+        .long 0x3
+        .long 0xFFFFFFFF     #end of input data, Done
+
+Main:   pushl %ebp           #
+	    rrmovl %esp,%ebp     #pointer setup
+        
+        irmovl Input, %edx
+        pushl %edx
+        
+        irmovl $-1, %edi        #will always be -1
+        
+        call Loop
+        
+        rrmovl %ebp,%esp
+	    popl %ebp
+    	ret     
+
+Loop:   pushl %esp
+        rrmovl %esp,%ebp
+        
+        mrmovl (%edx), %esi                 #setup sum (%eax) and copy (%esi)
+        mrmovl (%edx), %eax
+        
+        ################INITIAL COUNTER##################
+        mrmovl (%edx), %ecx
+        irmovl $-1, %ebx
+        addl %ebx, %ecx                     #initial counter
+        #################################################
+        
+        
+        
+        ################## FACTORIAL ######################################
+        call Factorial 
+        ###################################################################
+        
+        
+BLoop:  
+        ###################################################################################################################
+        #       %eax is the answer for factorial value of the value in the array called at this point in the code
+        ###################################################################################################################
+
+        irmovl $4, %ebx                     #iterate to next value in array
+        addl %ebx, %edx
+        rrmovl %edx, %ebx                   #make copy of array pointer in %ebx
+                
+        xorl %edi, %ebx                     #check if value in array is the end value of array
+        
+        jne Loop                            #loop if -1^arr[i] != 0, changes %edx so I have to set it back toitself
+        je End                              #goto end if -1^arr[i] = 0
+        
+Factorial:  pushl %esp
+        rrmovl %esp,%ebp
+        rrmovl %eax, %esi
+        irmovl $-1, %ebx
+        addl %ebx, %ecx
+        je BLoop                    #stop when %ecx = 0
+        rrmovl %ecx, %ebx
+        call Mult
+        
+        irmovl $1, %ebx
+        xorl %ebx, %ecx
+        
+Mult:   pushl %esp
+        rrmovl %esp,%ebp
+        pushl %ecx
+        
+        addl %esi, %eax             #add current val to itself
+        addl %edi, %ecx             #decriment counter
+        
+        jg Mult
+        rrmovl %ebx, %ecx           #set counter to previous state before iteration
+        je Factorial
+        
+#Iter:   mrmovl (%ecx), %esi
+#       call Loop
+        
+#Loop:  mrmovl (%ecx), %esi             #get *Start
+#        addl %esi, %eax                 #add to sum
+#        irmovl $4, %ebx
+#        irmovl $-1, %edx
+#        addl %ebx, %edx                 #Count--
+#        jne Loop               #stop when 0
+End:
+	rrmovl %ebp,%esp                    #move %ebp to %esp
+	popl %ebp                           #clear content, restore %ebp on main
+	ret                                 #changing stack frame
+
+
+
+# The stack starts here and grows to lower addresses
+	.pos 0x1000		
+Stack:	 
