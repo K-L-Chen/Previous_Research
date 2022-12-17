@@ -22,5 +22,4 @@
 3. [Multiplication and Factorial Y86 Assembly Code](https://k-l-chen.github.io/Previous_Research/lab3p1.ys)
 4. [Raise to Power Y86 Assembly Code](https://k-l-chen.github.io/Previous_Research/lab3p2.ys)
 
-## Practice Import From Another Repository
-1. [INCOME](https://k-l-chen.github.io/test/trim.11480F28-B684-4F52-961F-8A632F20F63E.mp4)
+
