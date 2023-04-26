@@ -22,4 +22,7 @@
 3. [Multiplication and Factorial Y86 Assembly Code](https://k-l-chen.github.io/Previous_Research/lab3p1.ys)
 4. [Raise to Power Y86 Assembly Code](https://k-l-chen.github.io/Previous_Research/lab3p2.ys)
 
+## Other Links:
+1. [NSWCDD Hackathon Submission](https://k-l-chen.github.io/WM_Dahlgren_Challenge/)
+2. [Intro To Machine Learning Work](https://k-l-chen.github.io/I2ML-Work/)
 
