@@ -8,6 +8,7 @@
 4. [Research For Use of 3D Printed Organs](https://k-l-chen.github.io/Previous_Research/ResearchForUseOf3DPrintedOrgans.pdf)
 5. [Research Project for the Future of MBT Protection Systems](https://k-l-chen.github.io/Previous_Research/ResearchProjectForTheFutureOfMBTProtectionSystemsUpdate.pdf)
 6. [Research Paper for the Use of Caseless Ammunition](https://k-l-chen.github.io/Previous_Research/ResearchPaperForTheUseOfCaselessAmmunition.pdf)
+7. [A Quantitative Analysis of Chinese Philosophical Texts Using Topic Modelling Code](https://k-l-chen.github.io/Previous_Research/ChenKyle_CHIN370_FinalPaper.docx)
 
 ## Selected Programs
 1. [Code for Ultrasonic Range Finder with Distance Display for Arduino](https://k-l-chen.github.io/Previous_Research/ultrasonicRNGEFinder.txt)
