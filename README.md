@@ -15,6 +15,7 @@
 3. [Video of Basic Fan with Non-Continuous Servo Motor for Testing](https://k-l-chen.github.io/Previous_Research/IMG_2422.MOV)
 4. [Multiplication and Factorial Y86 Assembly Code](https://k-l-chen.github.io/Previous_Research/lab3p1.txt)
 5. [Raise to Power Y86 Assembly Code](https://k-l-chen.github.io/Previous_Research/lab3p2.txt)
+6. [A Quantitative Analysis of Chinese Philosophical Texts Using Topic Modelling Code](https://k-l-chen.github.io/Previous_Research/chin370_finalproject.py)
 
 ## Files for Selected Programs
 1. [Code for Ultrasonic Range Finder with Distance Display for Arduino](https://k-l-chen.github.io/Previous_Research/ultrasonicRNGEFinder.ino)
