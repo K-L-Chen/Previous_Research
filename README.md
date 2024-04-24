@@ -27,5 +27,5 @@
 ## Other Links:
 1. [NSWCDD Hackathon Submission](https://k-l-chen.github.io/WM_Dahlgren_Challenge/)
 2. [Intro To Machine Learning Work](https://k-l-chen.github.io/I2ML-Work/)
-3. [WM Cypher Hackathon Submissions 2022, 2023](https://github.com/K-L-Chen/CypherVIII_2023_Submission) (2022 Submission is a separate branch)
+3. [WM Cypher Hackathon Submissions 2022, 2023](https://k-l-chen.github.io/CypherVIII_2023_Submission) (2022 Submission is a separate branch)
 
