@@ -9,6 +9,18 @@ class sortalg{
     public:
         //pure virtual must =0, otherwise must be defined
         virtual vector<int> sort() = 0;
+        //swap based on pointer inputs
+        void swap(int *a, int *b){
+            int temp = *a;
+            *a = *b;
+            *b = temp;
+        }
+        //swap addressing
+        void swap(int &a, int &b){
+            int temp = a;
+            a = b;
+            b = temp;
+        }
         virtual ~sortalg(){}
 };
 
@@ -20,6 +32,7 @@ class bubblesort : public sortalg{
             this->tosort = tosort;
         }
         vector<int> sort() override{
+            static int numswaps = 0;
             //number of sorted elements at the end of the vector
             int sorted = 0;
             int len = tosort.size();
@@ -28,14 +41,13 @@ class bubblesort : public sortalg{
                 for(int j = 0; j < len - 1 - sorted; j++){
                     //change largest_ind to next position
                     if(tosort[j] > tosort[j + 1]){
-                        //print_vec<int>(tosort);
-                        int temp = tosort[j];
-                        tosort[j] = tosort[j + 1];
-                        tosort[j + 1] = temp;
+                        swap(&tosort[j], &tosort[j + 1]);
+                        numswaps++;
                     }
                 }
                 sorted++;
             }
+            cout << "Number of swaps: " << numswaps << endl;
             return tosort;
         }
 };
@@ -50,7 +62,7 @@ class selectionsort : public sortalg{
 
         vector<int> sort(){
             //number of sorted elements at the end of the vector
-            //print_vec<int>(tosort);
+            static int numswaps = 0;
             int len = tosort.size();
             for(int i = 0; i < len - 1; i++){
                 int smallest_ind = i;
@@ -60,11 +72,10 @@ class selectionsort : public sortalg{
                         smallest_ind = j;
                     }
                 }
-                int temp = tosort[i];
-                tosort[i] = tosort[smallest_ind];
-                tosort[smallest_ind] = temp;
-                //print_vec<int>(tosort);
+                swap(tosort[i], tosort[smallest_ind]);
+                numswaps++;
             }
+            cout << "Number of swaps: " << numswaps << endl;
             return tosort;
         }
 };
@@ -80,6 +91,7 @@ class insertionsort : public sortalg{
         vector<int> sort(){
             //print_vec<int>(tosort);
             int len = tosort.size();
+            static int numswaps = 0;
             //element at position 0 is already sorted, start at 1
             for(int i = 1; i < len; i++){
                 int current_selected_element = i;
@@ -87,13 +99,14 @@ class insertionsort : public sortalg{
                 //continue swapping until sorted (element at position 0 or if larger than previous number)
                 while(current_selected_element > 0){
                     if(tosort[current_selected_element] < tosort[current_selected_element - 1]){
-                        int temp = tosort[current_selected_element];
-                        tosort[current_selected_element] = tosort[current_selected_element - 1];
-                        tosort[--current_selected_element] = temp;
+                        swap(tosort[current_selected_element], tosort[current_selected_element - 1]);
+                        current_selected_element--;
+                        numswaps++;
                     }
                     else break;
                 }
             }
+            cout << "Number of swaps: " << numswaps << endl;
             return tosort;
         }
 };
@@ -106,7 +119,7 @@ template <typename T> void print_vec(vector<T> in){
 }
 
 int main(){
-    vector<int> tosort = {5, 4, 1, 2, 10, 200, 19, -1, -2};
+    vector<int> tosort = {1, 500, 4, 2, 10, 200, 19, -1, -2};
     vector<int> out;
     bubblesort bs(tosort);
     selectionsort ss(tosort);
